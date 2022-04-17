@@ -1,0 +1,1 @@
+<?php require 'page-header.php';?><div class="contents"></div><?php require 'page-footer.php';?>
