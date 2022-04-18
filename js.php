@@ -5,6 +5,32 @@ function viewToggle(div) {
 function viewRemove(div) {
 	div.classList.remove("show")
 }
+function remove_loader(){
+	if (document.getElementsByTagName('loader')[0]) {setTimeout(()=>{document.getElementsByTagName('loader')[0].style = "opacity: 0;";}, 1); setTimeout(()=>{document.getElementsByTagName('loader')[0].remove();},300);};
+}
+
+function create(name, classes = null, id = null){
+	if(name != "" && name != null && name != undefined && name != false){
+		var element = document.createElement(name);
+		if(classes != "" && classes != null && classes != undefined && classes != false){
+			classes.split(" ").forEach(item=>{
+				if(item != ""){
+					element.classList.add(item);
+				}				
+			});
+		}
+		if(id != "" && id != null && id != undefined && id != false){
+			id.split(" ").forEach(item=>{
+				if(item != ""){
+					element.id += (" ")+(item);
+				}				
+			});
+		}
+		return element;
+	}else{
+		return false;
+	}
+}
 
 function rgba(r, g, b, a){
 	if (r < 0 || r > 255) {
@@ -61,14 +87,29 @@ function notification(text, color){
 			newDiv.style = "color:"+color+";padding: 8px 16px;height: 35px;border: 1px solid;opacity: 1;border-radius: 3px;font-size: 11px;margin-bottom: 4px;";
 			clearInterval(newInterval);
 		}, 3000);
+	}else{
+		var event_5 = document.createElement("div");
+		event_5.id = "event_5";
+		document.querySelector("body").appendChild(event_5);
+		notification(text, color);
 	}
 }
-
+function href(link){
+	if(link){
+		window.location.assign(link);
+	}
+}
 function loadLink(url, data){
 	// loadLink('/pages.php', [['name','jibon'],['bool','false']]).then(result=>{console.log(result)})
 	return new Promise(function(resolve, reject){
 
 		var http = new XMLHttpRequest();
+		if(!document.querySelector("div.loader")){
+			var loader = create("div", "loader");
+			var loaded = create("div", "loaded");
+			loader.appendChild(loaded);
+			document.querySelector("body").appendChild(loader);
+		}
 		var loader = document.querySelector(".loader .loaded");
 		loader.style = `width: 20%;`;
 		http.open("POST", url);

@@ -11,7 +11,7 @@ function connect(){
 	$DB_HOST = "localhost";
 	$DB_USER = "root";
 	$DB_PASS = "";
-	$DB_NAME = "project_32";
+	$DB_NAME = "project_38";
 	$CONNECT = @mysqli_connect($DB_HOST, $DB_USER, $DB_PASS, $DB_NAME);
 	return $CONNECT;
 }
@@ -256,13 +256,16 @@ function times($ss) {
 
 
 
-function info(){
+function info($admin = false){
     $result = array();
     global $connect;
 	$sql = "SELECT * FROM `info` ORDER BY `info`.`id` DESC";
 	$query = @mysqli_query($connect, $sql);
 	if($query){
 		foreach($query as $details){
+			if(!$admin){
+				unset($details['password']);
+			}
 			$result[$details['name']] = $details['value'];
 		}
 	}else{

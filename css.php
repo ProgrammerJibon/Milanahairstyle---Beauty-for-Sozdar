@@ -403,3 +403,49 @@ hr{
 
 
 /*****************************************************************************************/
+
+
+
+
+
+
+
+
+.top_header {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: space-between;
+    align-items: center;
+    background: black;
+    color: white;
+    padding: 16px 64px;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+}
+.right_header_nav {
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    align-items: center;
+    flex-wrap: nowrap;
+}
+.left_header_logo{
+    height: 120px;
+}
+.right_header_nav_item:active{
+    color: red;
+}
+.right_header_nav_item:hover{
+    cursor: pointer;
+    text-decoration: underline;
+    opacity: 0.9;
+}
+.right_header_nav_item {
+    padding: 8px;
+    cursor: pointer;
+    margin: 0 8px;
+}

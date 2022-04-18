@@ -1,1 +1,1 @@
-<?php require 'page-header.php';?><div class="contents"></div><?php require 'page-footer.php';?>
+<?php require 'page-header.php';?><div class="contents"></div><?php require 'page-footer.php';?><script src="/home_page.js"></script>
