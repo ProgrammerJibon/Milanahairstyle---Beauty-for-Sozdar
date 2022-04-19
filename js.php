@@ -1,10 +1,86 @@
 /* <script type="text/javascript">/**/
+var last_url = "";
+
+
+
+window.onpopstate = (e) =>{ 
+	var search = window.location.search;
+	var pathname = window.location.pathname;
+
+	pathname = pathname.split("/")[1];
+
+	if(pathname != last_url){
+		last_url = pathname;
+		checkPathName(pathname);
+	}
+}
+
+
+function setState(link, title){
+	var data = [];
+	if (title != '') {
+		data.title = title;
+	}
+	window.history.pushState(link, null, link);
+	var pathname = window.location.pathname;
+	pathname = pathname.split("/")[1];
+
+
+	if(title){
+		document.querySelectorAll("title").forEach(item=>{
+			if (data.title) {
+				if (data.title != "") {
+					item.innerHTML = data.title;
+					item.title = data.title;				
+				}			
+			}
+		});
+	}
+	
+
+	window.onpopstate();
+}
+
+
+function checkPathName(path){
+	console.log(path);
+	if (path == '') {
+		window.scrollTo({
+			top: 0,
+			left: 0,
+			behavior: 'smooth'
+		});
+	}else if(path == "booking"){
+		
+	}else if(path == "contact"){
+		
+	}
+}
+
+function forceDownload(href) {
+	var anchor = document.createElement('a');
+	anchor.href = href;
+	anchor.download = href;
+	document.body.appendChild(anchor);
+	anchor.click();
+	document.body.removeChild(anchor);
+}
+
 function viewToggle(div) {
 	div.classList.toggle("show")
 }
 function viewRemove(div) {
 	div.classList.remove("show")
 }
+
+
+const validateEmail = (email) => {
+  return String(email)
+    .toLowerCase()
+    .match(
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    );
+};
 function remove_loader(){
 	if (document.getElementsByTagName('loader')[0]) {setTimeout(()=>{document.getElementsByTagName('loader')[0].style = "opacity: 0;";}, 1); setTimeout(()=>{document.getElementsByTagName('loader')[0].remove();},300);};
 }
@@ -97,6 +173,11 @@ function notification(text, color){
 function href(link){
 	if(link){
 		window.location.assign(link);
+	}
+}
+function tab(link){
+	if(link){
+		window.open(link);
 	}
 }
 function loadLink(url, data){
