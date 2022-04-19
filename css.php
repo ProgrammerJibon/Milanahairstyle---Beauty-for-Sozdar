@@ -4,6 +4,8 @@
 
 :root{
     --primary: #e3bb65;
+    --secondary: #0c0f20;
+    --optional: #121212;
 }
 
 body{
@@ -448,6 +450,7 @@ header {
     right: 0;
     top: 0;
     z-index: 999;
+    backdrop-filter: blur(5px);
 }
 .right_header_nav {
     display: flex;
@@ -484,7 +487,7 @@ footer {
     bottom: 0;
     left: 0;
     right: 0;
-    background: #0c0f20;
+    background: var(--secondary);
     color: white;
     z-index: 0;
 }
@@ -551,6 +554,7 @@ button.fnav_item {
 .home_page {
     position: relative;
     z-index: 1;
+    background-color: white;
 }
 .top_banner {
     height: 100vh;
@@ -561,6 +565,7 @@ button.fnav_item {
     justify-content: flex-end;
     align-content: center;
     align-items: center;
+    position: relative;
 }
 
 .top_banner_right {
@@ -575,8 +580,10 @@ button.fnav_item {
 }
 .tbr_header_1 {
     font-family: alex brush;
-    font-size: 76px;
+    font-size: 50px;
+    text-transform: uppercase;
     color: var(--primary);
+    text-align: center;
 }
 .tbr_header_2 {
     font-size: 75px;
@@ -584,9 +591,10 @@ button.fnav_item {
     font-weight: 400;
     font-style: normal;
     line-height: 80px;
-    max-width: 460px;
+    max-width: 550px;
     text-align: center;
     color: white;
+    text-transform: uppercase;
 }
 .tbr_header_3 {
     background: var(--primary);
@@ -599,4 +607,106 @@ button.fnav_item {
     font-weight: 400;
     font-style: normal;
     padding: 16px 32px;
+    text-align: center;
+    cursor: pointer;
+}
+.gender_selections {
+    width: 100%;
+    padding: 32px 16px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    bottom: 0;
+}
+.gender_selections .gender {
+    border: 1px solid;
+    background: #00000094;
+    color: #ffffff;
+    padding: 16px 32px;
+    margin: 8px 32px;
+    cursor: pointer;
+    border-radius: 2px;
+    backdrop-filter: blur(3px);
+}
+.gender_selections .gender:not(.active):hover{
+    background-color: var(--primary);
+}
+.gender_selections .gender.active {
+    border: 1px solid green;
+    color: green;
+}
+.price_lists {
+    background: var(--optional);
+    display: flex;
+    padding: 64px 16px;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+}
+.beside_prices_pic {
+    flex: 0 0 50%;
+    padding: 32px;
+    max-width: 500px;
+}
+.price_list {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-content: flex-start;
+    align-items: flex-start;
+    justify-content: center;
+    flex: 0 0 50%;
+    padding: 32px;
+    min-width: 400px;
+}
+.price_list_item {
+    display: flex;
+    flex-wrap: nowrap;
+    align-content: flex-start;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-direction: row;
+    width: 100%;
+    color: white;
+    font-family: 'Teko';
+    font-size: 35px;
+    text-transform: uppercase;
+    overflow: hidden;
+    position: relative;
+}
+.price_list_item_name {
+    margin-right: 16px;
+    position: relative;
+    z-index: 2;
+    background: var(--optional);
+}
+.price_list_item_price {
+    color: var(--primary);
+    position: relative;
+    z-index: 2;
+    background: var(--optional);
+}
+.price_list_item_price:after {
+    content: "€";
+}
+.price_list_item_name:after {
+    content: ".......................................................................................................................................................................................................................";
+    position: absolute;
+    bottom: 0;
+    margin-left: 8px;
+}
+.prices_title {
+    background: var(--optional);
+    margin: 0;
+    padding: 32px 45px;
+    color: var(--primary);
+    font-size: 50px;
+    border-bottom: 1px solid gray;
+    text-transform: uppercase;
+    font-family: 'Teko';
+    letter-spacing: 8px;
 }
