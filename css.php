@@ -449,7 +449,7 @@ header {
     left: 0;
     right: 0;
     top: 0;
-    z-index: 999;
+    z-index: 90;
     backdrop-filter: blur(5px);
 }
 .right_header_nav {
@@ -709,4 +709,316 @@ button.fnav_item {
     text-transform: uppercase;
     font-family: 'Teko';
     letter-spacing: 8px;
+}
+
+.photos-grid {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-around;
+    align-content: center;
+}
+.photos-grid form.delete_photo {
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+.photos-grid .photos-item {
+    width: 300px;
+    height: 200px;
+    margin: 16px 8px 16px 0px;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+}
+.photos-grid .photos-item .title {
+    display: none;
+}
+.photos-grid .photos-item .date {
+    display: none;
+}
+.photos-grid .photos-item .photo.full_size .title {
+    display: block;
+    position: absolute;
+    bottom: 0%;
+    left: 0;
+    color: white;
+    width: 100%;
+    padding: 8px 16px;
+    white-space: nowrap;
+    text-align: right;
+}
+.photos-grid .photos-item .photo.full_size .date {
+    display: block;
+    position: absolute;
+    top: 0%;
+    left: 0;
+    width: 100%;
+    color: white;
+    padding: 8px 16px;
+    text-align: right;
+}
+/* .photos-grid .photos-item .photo.full_size:hover .title{
+    display: block;
+    bottom: 0;
+    max-height: 32px;
+    overflow: hidden;
+}
+.photos-grid .photos-item .photo.full_size:hover .date{
+    display: block;
+    top: 0;
+} */
+.photos-grid .photos-item:hover .photo{
+    transform: scale(1.1);
+}
+.photos-grid .photos-item .photo{
+    transform: scale(1);
+    height: 100%;
+}
+.photo.full_size {
+    position: fixed;
+    left: 0;
+    right: 0;
+    z-index: 99;
+    width: 100%;
+    height: calc(100% - var(--top)) !important;
+    top: var(--top);
+    padding: 32px;
+    cursor: zoom-out;
+    background: #00000073;
+    backdrop-filter: blur(5px);
+    transform: scale(1) !important;
+}
+.photo.full_size img{
+    object-fit: contain;
+}
+label{
+    user-select: none;
+    display: block;
+    cursor: pointer;
+}
+.booking{
+    position: relative;
+    z-index: 2;
+    background: var(--optional);
+    color: white;
+    padding-bottom: 32px;
+    min-height: 100vh;
+}
+.table_books {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 64px 32px;
+}
+.tb_title {
+    font-family: 'FontAwesome';
+    letter-spacing: 4px;
+    font-size: 35px;
+}
+.input_label {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-content: flex-start;
+    align-items: stretch;
+    margin: 16px auto;
+    font-size: 25px;
+    font-family: Teko;
+    letter-spacing: 2px;
+}
+.input_label input {
+    border: none;
+    border-radius: 2px;
+    padding: 8px 16px;
+    font-size: 16px;
+    font-family: 'Akshar';
+}
+.input_label input[type="submit"] {
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    font-size: 20px;
+    padding: 8px;
+    background: #ff0052;
+    cursor: pointer;
+}
+.input_label input[type="submit"]:active{
+    opacity: 0.5;
+    transition: all 0.05 ease-in-out;
+}
+
+.contact{
+    min-height: 100vh;
+    background: var(--optional);
+    position: relative;
+    z-index: 2;
+    color: white;
+}
+.contacts {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 64px 16px;
+}
+.intro_video {
+    width: 100%;
+    height: auto;
+}
+
+
+
+.admin_page{
+	padding: 0px 32px;
+}
+.admin_page .top_banner{
+    margin: 0 -32px;
+}
+.admin_page .top_banner .menu-bar{
+    display: none;
+}
+.admin_page .top_banner .top_banner_inset .title span:after {
+    content: " Admin";
+    color: #f80145;
+}
+.admin_page .home_page_logo img{
+    width: 200px;
+    height: auto;
+    object-fit: cover;
+}
+
+table{
+	overflow-x: hidden;
+	width: 100%;
+	margin: 64px 0;
+}
+table tr{
+	background: #ffd9d9;
+}
+table tr td{
+	padding: 16px;
+}
+table thead tr th{
+	padding: 16px;
+}
+table thead tr{
+	background: #ff7b7b;
+    color: white;
+}
+table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+video{
+    width: 100%;
+}
+.admin_page .menu_bar {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    align-content: center;
+    background: var(--optional);
+    margin: 0 -32px;
+    box-shadow: 5px 5px 15px -5px black;
+    flex-wrap: wrap;
+    position: sticky;
+    top: 0;
+    white-space: nowrap;
+    z-index: 9;
+}
+.admin_page button:hover{
+    color: #ff0045;
+}
+.admin_page button{
+    background: unset;
+    cursor: pointer;
+    padding: 8px 16px;
+    font-size: 15px;
+    color: #ff0052;
+    border: 1px solid #ff0052;
+    background: white;
+    font-weight: bold;
+    border-radius: 3px;
+}
+.admin_page .menu_bar .menu_item {
+    padding: 32px 4px;
+    color: var(--primary);
+    font-size: 15px;
+    text-transform: capitalize;
+    cursor: pointer;
+    width: 100%;
+    text-align: center;
+    flex: 14.28%;
+}
+.admin_page .menu_bar .menu_item:hover{
+	background: #ff0052;
+    color: #ffffff;
+}
+.admin_page .menu_bar .menu_item[name="logout"]{
+    text-align: center !important;
+    color: white;
+    background: red;
+    border: 0;
+    margin: 0;
+}
+.newsletter {
+    padding: 32px 32px;
+    color: white;
+}
+.admin_page .menu_bar .menu_item[name="logout"]:hover{
+    color: red;
+    background: white !important;
+}
+input:disabled, input:disabled:hover{
+    color: gray !important;
+    border-color: gray;
+    background: transparent !important;
+}
+.settings_main{
+	padding: 64px 0;
+	max-width: 600px;
+	margin: 0 auto;
+}
+.settings_main .settings_item{
+	margin: 32px 0;
+}
+.settings_main .settings_img_change{
+	max-width: 300px;
+	cursor: pointer;
+	border: 1px solid #ff0052;
+}
+.settings_main .settings_title{
+	font-size: 16px;
+	font-family: cursive;
+	color: var(--primary);
+}
+.settings_main .settings_item .change_text{
+    width: 100%;
+    padding: 8px 16px;
+    font-size: 15px;
+    color: #ff0052;
+    border: 1px solid #ff0052;
+    border-radius: 3px;
+    margin: 8px 0;
+    background: white;
+    cursor: pointer;
+    resize: vertical;
+}
+.settings_main .settings_item textarea.change_text{
+    height: 350px;
+}
+.settings_main .settings_item input.change_text[type='submit'], .settings_main .settings_item textarea.change_text[type='submit']{
+    color: inherit;
+}
+.settings_main .settings_item input.change_text:focus, .settings_main .settings_item textarea.change_text:focus{
+    color: inherit;
+}
+.settings_main .settings_item .result_change_text{
+	color: green;
+    height: 20px;
+    font-size: 15px;
 }

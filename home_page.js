@@ -8,12 +8,20 @@
         men_prices = result.men_prices;
         women_prices = result.women_prices;
         info = result.home_page;
+        gallery_images = result.gallery_images;
         console.log(result);
         contents = document.querySelector("div.contents");
             header = create("header");
             contents.appendChild(header);
             home_page = create("div", "home_page");
             contents.appendChild(home_page);
+            booking = create("div", "booking");
+            contents.appendChild(booking);
+            contact = create("div", "contact");
+            contents.appendChild(contact);
+            home_page.style.display = "none";
+            booking.style.display = "none";
+            contact.style.display = "none";
                 left_header = create("div", "left_header");
                 header.appendChild(left_header);
                     left_header_logo = create("img", "left_header_logo");
@@ -38,6 +46,8 @@
                         right_header_nav_item.innerHTML = "Contact";
                         right_header_nav.appendChild(right_header_nav_item);
                         right_header_nav_item.onclick=()=>{setState("/contact", info.title + " - Contact us")};
+            booking.style.paddingTop = header.clientHeight+"px";;
+            contact.style.paddingTop = header.clientHeight+"px";;
         footer = create("footer");
         contents.appendChild(footer);
             footer_navigations = create("div", "footer_navigations");
@@ -98,7 +108,7 @@
                         social.innerHTML = '<i class="fa-brands fa-youtube"></i>';
                         fnav_item.appendChild(social);
                         social.href = info.youtube;
-                        social.target = "_blank"
+                        social.target = "_blank";
 
                 fnav_i3 = create("div", "footer_nav_item");
                 footer_navigations.appendChild(fnav_i3);
@@ -133,17 +143,19 @@
                     fnav_title.innerHTML = "Stay up to date";
                     fnav_i4.appendChild(fnav_title);
 
-                    fnav_item = create("input", "fnav_item newsletter_subscription");
-                    fnav_item.type = "email";
-                    fnav_item.required = true;
-                    fnav_item.placeholder = "Enter email address";
-                    fnav_i4.appendChild(fnav_item);
+                    fnav_item1 = create("input", "fnav_item newsletter_subscription");
+                    fnav_item1.type = "email";
+                    fnav_item1.required = true;
+                    fnav_item1.placeholder = "Enter email address";
+                    fnav_i4.appendChild(fnav_item1);
 
-                    fnav_item = create("button", "fnav_item newsletter_subscription");
-                    fnav_item.type = "submit"
-                    fnav_item.innerHTML = "Subscribe to newsletter";
-                    fnav_i4.appendChild(fnav_item);
-                    fnav_item.onclick
+                    fnav_item2 = create("button", "fnav_item newsletter_subscription");
+                    fnav_item2.type = "submit"
+                    fnav_item2.innerHTML = "Subscribe to newsletter";
+                    fnav_i4.appendChild(fnav_item2);
+                    fnav_item2.onclick=()=>{
+                        newsletterSubscription1(fnav_item1, fnav_item2)
+                    }
             copyrights = create("hr");
             footer.appendChild(copyrights);
             copyrights = create("div", "copyrights");
@@ -247,6 +259,191 @@
                         FOR ALL AGE`;
                         top_banner.style = `background: url("${info.top_banner_women}");background-position: center;background-repeat: no-repeat;background-size: cover;background-attachment: fixed;`;
                     }
-                    
+            gallery = create("div")
+                gallery_imgs = create("div", "photos-grid");
+                home_page.appendChild(gallery_imgs);
+                    gallery_images.forEach(img_row=>{
+                        var img_item = create("div", "photos-item");
+                        gallery_imgs.appendChild(img_item);
+                            var photo = create("div", "photo");
+                            img_item.appendChild(photo);
+                                var photo_img = create("img");
+                                photo.appendChild(photo_img);
+                                photo_img.src = img_row.pic;
+                                var setPhotoClick = photo.onclick=()=>{
+                                    photo.classList.add("full_size");
+                                    photo.style = `--top:${header.clientHeight}px`;
+                                    photo.onclick=()=>{
+                                        photo.classList.remove("full_size");
+                                        photo.onclick = setPhotoClick;
+                                    }
+                                }
+                                date = create("div", "date");
+                                photo.appendChild(date);
+                                    date_span = create("span");
+                                    date.appendChild(date_span);
+                                    date.innerHTML = img_row.took_date;
+                                title = create("div", "title");
+                                photo.appendChild(title);
+                                    title_span = create("span");
+                                    title.appendChild(title_span);
+                                    title.innerHTML = img_row.title;
+                    });
+        /* start of booking table */
+            table_books = create("form", "table_books");
+            table_books.method = "POST";
+            table_books.action = "/json.php";
+            booking.appendChild(table_books);
+                tb_title = create("h2", "tb_title");
+                tb_title.innerHTML = "Book an apointment";
+                table_books.appendChild(tb_title);
+
+                tb_name_div = create("label", "input_label");
+                tb_name_div.innerHTML = "Enter your full name";
+                table_books.appendChild(tb_name_div);
+                    tb_name_input = create("input");
+                    tb_name_input.placeholder = "Jhon Doe";
+                    tb_name_input.type = "text";
+                    tb_name_input.required = true;
+                    tb_name_div.appendChild(tb_name_input);
+
+                tb_email_div = create("label", "input_label");
+                tb_email_div.innerHTML = "Enter your email address";
+                table_books.appendChild(tb_email_div);
+                    tb_email_input = create("input");
+                    tb_email_input.placeholder = "user@domain.com";
+                    tb_email_input.type = "email";
+                    tb_email_input.required = true;
+                    tb_email_div.appendChild(tb_email_input);
+
+                tb_phone_div = create("label", "input_label");
+                tb_phone_div.innerHTML = "Enter your phone number";
+                table_books.appendChild(tb_phone_div);
+                    tb_phone_input = create("input");
+                    tb_phone_input.placeholder = "+88016500XXXXX";
+                    tb_phone_input.type = "number";
+                    tb_phone_input.required = true;
+                    tb_phone_div.appendChild(tb_phone_input);
+
+                tb_date_div = create("label", "input_label");
+                tb_date_div.innerHTML = "Select date";
+                table_books.appendChild(tb_date_div);
+                    tb_date_input = create("input");
+                    tb_date_input.value = "2022-04-05";
+                    tb_date_input.type = "date";
+                    tb_date_input.required = true;
+                    tb_date_div.appendChild(tb_date_input);
+
+                tb_time_div = create("label", "input_label");
+                tb_time_div.innerHTML = "Select time";
+                table_books.appendChild(tb_time_div);
+                    tb_time_input = create("input");
+                    tb_time_input.value = "14:35";
+                    tb_time_input.type = "time";
+                    tb_time_input.required = true;
+                    tb_time_div.appendChild(tb_time_input);
+
+                tb_submit_div = create("label", "input_label");
+                table_books.appendChild(tb_submit_div);
+                    tb_submit_input = create("input");
+                    tb_submit_input.type = "submit";
+                    tb_submit_input.value = "Book an appointment";
+                    tb_submit_div.appendChild(tb_submit_input);
+                    table_books.onsubmit=()=>{
+                        if(!validateEmail(tb_email_input.value)){
+                            alert("Invalid email");
+                            return false;
+                        }
+                        loadLink('/json.php', [['name', tb_name_input.value],['email', tb_email_input.value],['phone', tb_phone_input.value],['date', tb_date_input.value],['time', tb_time_input.value],['booking','true']]).then(result=>{
+                            if (result.booking == true) {
+                                table_books.innerHTML = "";
+                                table_books.appendChild(tb_title);
+                                tb_title.innerHTML = "Booking has succesfully confirmed!<br>Please check your mail";
+                            }else{
+                                alert("Check all the fields...");
+                            }
+                        });
+                        return false;
+                    }
+        // contact page started
+        contacts = create("div", "contacts");
+        contact.appendChild(contacts);
+            conkat1 = create("div", "footer_nav_item");
+            contacts.appendChild(conkat1);
+                fnav_title = create("h1", "fnav_title");
+                fnav_title.innerHTML = info.title;
+                conkat1.appendChild(fnav_title);
+
+                intro_video = create("video", "intro_video");
+                intro_video.src = info.intro;
+                conkat1.appendChild(intro_video);
+                intro_video.loop = true;
+                intro_video.preload = true;
+                intro_video.autoplay = true;
+                intro_video.controls = false;
+                intro_video.muted = true;
+                intro_video.poster = info.top_banner_men;
+                intro_video.oncontextmenu=()=>{
+                    intro_video.onclick();
+                    return false;
+                }
+                intro_video.onclick=()=>{
+                    if(intro_video.muted){
+                        intro_video.muted = false;
+                    }else{
+                        intro_video.muted = true;
+                    }
+                }
+                intro_video.oncanplay =(e)=>{
+                    intro_video.play();
+                }
+
+                fnav_item = create("div", "fnav_item");
+                fnav_item.innerHTML = '<i class="fa-solid fa-location-dot"></i>' + info.address;
+                conkat1.appendChild(fnav_item);
+
+                fnav_item = create("div", "fnav_item link");
+                fnav_item.innerHTML = '<i class="fa-solid fa-envelope"></i> '+info.email;
+                conkat1.appendChild(fnav_item);
+                fnav_item.onclick=()=>{tab(`mailto:${info.email}`);}
+
+                fnav_item = create("div", "fnav_item link");
+                fnav_item.innerHTML = '<i class="fa-solid fa-phone"></i> '+info.phone;
+                conkat1.appendChild(fnav_item);
+                fnav_item.onclick=()=>{tab(`tel:${info.phone}`);}
+
+                fnav_item = create("div", "fnav_item");
+                fnav_item.innerHTML = '<i class="fa-solid fa-clock"></i> ';
+                info.hours.split("\n").forEach(item=>{
+                    fnav_item.innerHTML = `${fnav_item.innerHTML+item}</br>`;
+                });
+                conkat1.appendChild(fnav_item);
+
+                fnav_item = create("div", "fnav_item");
+                conkat1.appendChild(fnav_item);
+                    social = create("a", "social");
+                    social.innerHTML = '<i class="fa-brands fa-facebook"></i>';
+                    fnav_item.appendChild(social);
+                    social.href = info.facebook;
+                    social.target = "_blank"
+
+                    social = create("a", "social");
+                    social.innerHTML = '<i class="fa-brands fa-twitter"></i>';
+                    fnav_item.appendChild(social);
+                    social.href = info.twitter;
+                    social.target = "_blank"
+
+                    social = create("a", "social");
+                    social.innerHTML = '<i class="fa-brands fa-instagram"></i>';
+                    fnav_item.appendChild(social);
+                    social.href = info.instagram;
+                    social.target = "_blank"
+
+                    social = create("a", "social");
+                    social.innerHTML = '<i class="fa-brands fa-youtube"></i>';
+                    fnav_item.appendChild(social);
+                    social.href = info.youtube;
+                    social.target = "_blank"
+        window.onpopstate();               
     });
 })();

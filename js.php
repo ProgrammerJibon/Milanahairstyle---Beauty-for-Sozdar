@@ -1,5 +1,6 @@
 /* <script type="text/javascript">/**/
 var last_url = "";
+var first_load = true;
 
 
 
@@ -12,50 +13,59 @@ window.onpopstate = (e) =>{
 	if(pathname != last_url){
 		last_url = pathname;
 		checkPathName(pathname);
+	}else if(first_load){
+		first_load = false;
+		checkPathName(pathname);
 	}
 }
 
-
 function setState(link, title){
-	var data = [];
-	if (title != '') {
-		data.title = title;
-	}
-	window.history.pushState(link, null, link);
-	var pathname = window.location.pathname;
-	pathname = pathname.split("/")[1];
+	var body = document.querySelector("body");
+	body.style.filter = `blur(10px)`;
+	setTimeout(()=>{
+		var data = [];
+		if (title != '') {
+			data.title = title;
+		}
+		window.history.pushState(link, null, link);
+		var pathname = window.location.pathname;
+		pathname = pathname.split("/")[1];
 
 
-	if(title){
-		document.querySelectorAll("title").forEach(item=>{
-			if (data.title) {
-				if (data.title != "") {
-					item.innerHTML = data.title;
-					item.title = data.title;				
-				}			
-			}
-		});
-	}
+		if(title){
+			document.querySelectorAll("title").forEach(item=>{
+				if (data.title) {
+					if (data.title != "") {
+						item.innerHTML = data.title;
+						item.title = data.title;				
+					}			
+				}
+			});
+		}
+		
+
+		window.onpopstate();
+		setTimeout(() => {
+			body.style.filter = ``;
+		}, 150);
+	}, 150);
 	
-
-	window.onpopstate();
 }
 
 
 function checkPathName(path){
-	console.log(path);
+	home_page.style.display = "none";
+	booking.style.display = "none";
+    contact.style.display = "none";
 	if (path == '') {
-		window.scrollTo({
-			top: 0,
-			left: 0,
-			behavior: 'smooth'
-		});
+		home_page.style.display = "block";
 	}else if(path == "booking"){
-		
+		booking.style.display = "block";
 	}else if(path == "contact"){
-		
+		contact.style.display = "block";
 	}
 }
+
 
 function forceDownload(href) {
 	var anchor = document.createElement('a');
@@ -72,6 +82,7 @@ function viewToggle(div) {
 function viewRemove(div) {
 	div.classList.remove("show")
 }
+
 
 
 const validateEmail = (email) => {
@@ -494,4 +505,97 @@ if (imageLinks.length == 1) {
 
 
 	startSlide();
+}
+
+
+
+function newsletterSubscription1(input, button){
+	if (input.value == "" || validateEmail(input.value) == null) {
+		alert("Please enter an valid email");
+		input.focus();
+	}else{
+		button.disabled = true;
+		loadLink('/json.php', [['newsletter_subscription',input.value],['bool','false']]).then(result=>{
+			if (result.newsletter_subscription == 1) {
+				alert("successfully subscribed!");
+				setTimeout(() => {
+					button.disabled = true;
+					input.innerHTML = "";
+				}, 3000);
+			}else if (result.newsletter_subscription == 2) {
+				alert("Server is busy...");
+				input.focus();
+				setTimeout(() => {
+					button.disabled = false;
+				}, 3000);
+			}else if (result.newsletter_subscription == 3) {
+				alert("Already registered!");
+				setTimeout(() => {
+					button.disabled = true;
+				}, 3000);
+			}else if (result.newsletter_subscription == 4) {
+				alert("Invalid Email");
+				input.focus();
+				setTimeout(() => {
+					button.disabled = false;
+				}, 3000);
+			}else{
+				alert("Internet is unstable!");
+				input.focus();
+				setTimeout(() => {
+					button.disabled = false;
+				}, 3000);
+			}
+		});
+	}
+	
+}
+
+window.onload=(e)=>{
+	window_onload();
+}
+
+function change_text_settings(input, result, which, is_pass){
+	result = document.querySelector(result);
+	result.innerHTML = "Please wait while changing...";
+	input.disabled = true;
+	input.style = "border:1px solid gray; color: gray;";
+	loadLink('/json.php', [['name', which], ['value', input.value], ['is_pass', is_pass],['change_text_settings','true']]).then(db_result=>{
+		result.innerHTML = db_result.settings_changed;
+		setTimeout(()=>{
+			input.disabled = false;
+			input.style = "";
+		}, 3000)
+	});
+}
+
+function window_onload(){
+	
+	if (document.querySelector('div.require_pass')) {
+		remove_loader();
+		function ask_admin_pass(msg){
+			msg = msg || "Enter password";
+			var x = prompt(msg);
+			if (x == null) {
+				window.location.assign("/");
+			}else if(x == false){
+				window.location.assign("/");
+			}else{
+				loadLink('/json.php', [['admin_pass_enter', x],['bool','false']]).then(result_admin_pass=>{
+					if (result_admin_pass.login && result_admin_pass.login == "reload") {
+						window.location.reload();
+					}else if (result_admin_pass.login){
+						ask_admin_pass(result_admin_pass.login);
+					}else{
+						ask_admin_pass("Check your connection and try again letter...");
+					}
+				})
+			}
+		}
+		if (body = document.querySelector('body')) {
+			if ((body.style.background = "black") && (body.style.color = "white")) {
+				ask_admin_pass();
+			}
+		}
+	}
 }

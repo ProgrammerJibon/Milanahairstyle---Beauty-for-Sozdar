@@ -208,7 +208,7 @@ function sent_mail($to = null, $fname = null, $message = null, $subject = null, 
 		</table>
 	</body>
 	';
-	if (mail($to, $subject, $mail_body, $header)) {
+	if (@mail($to, $subject, $mail_body, $header)) {
 		return $to;
 	}else{
 		return false;
