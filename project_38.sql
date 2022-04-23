@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 23, 2022 at 08:36 PM
+-- Generation Time: Apr 23, 2022 at 08:49 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.2
 
@@ -57,7 +57,7 @@ CREATE TABLE `info` (
 --
 
 INSERT INTO `info` (`id`, `name`, `value`, `time`) VALUES
-(1, 'logo', 'uploads/2022/Apr/image-1650488829-978676149.png', 0),
+(1, 'logo', 'cdn/logo.png', 0),
 (2, 'title', 'Milanahairstyle & Beauty', 0),
 (3, 'top_banner_men', 'cdn/1594922460-image.jpg', 0),
 (4, 'facebook', 'https://www.facebook.com//', 0),
@@ -71,7 +71,7 @@ INSERT INTO `info` (`id`, `name`, `value`, `time`) VALUES
 (18, 'hours', 'Monday to Saturday: 09:00 - 20:00\r\nSunday: Closed', 0),
 (19, 'top_banner_women', 'cdn/2090262.jpg', 0),
 (20, 'beside_prices', 'cdn/image-2-2.png', 0),
-(21, 'intro', 'uploads/2022/Apr/video-1650489247-858631205.mp4', 0);
+(21, 'intro', 'cdn/Beauty salon commercial HD.mp4', 0);
 
 -- --------------------------------------------------------
 

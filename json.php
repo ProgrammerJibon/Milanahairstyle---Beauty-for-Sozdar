@@ -37,11 +37,21 @@ if (isset($_SESSION['user_admin']) && $_SESSION['user_admin'] == "4564654654lkas
 	}
     
 
-
-    
     if (isset($_FILES['logo_change']['tmp_name'])) {
         if($file_name = upload($_FILES['logo_change']['tmp_name'], "image")){
             if (mysqli_query($connect, "UPDATE `info` SET `value` = '$file_name' WHERE `info`.`name` = 'logo'")) {
+                header("Location: /admin?p=3");
+                exit;
+            }else{
+                exit("Can't save to database! Try letter...");
+            }
+        }       
+    }
+
+    
+    if (isset($_FILES['beside_prices']['tmp_name'])) {
+        if($file_name = upload($_FILES['beside_prices']['tmp_name'], "image")){
+            if (mysqli_query($connect, "UPDATE `info` SET `value` = '$file_name' WHERE `info`.`name` = 'beside_prices'")) {
                 header("Location: /admin?p=3");
                 exit;
             }else{
