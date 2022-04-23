@@ -169,6 +169,16 @@ if(isset($_POST['home_page'])){
             $result['gallery_images'][] = $gallery_image;
         }
     }
+    if($gallery_query = mysqli_query($connect, "SELECT * FROM `translations` ORDER BY `translations`.`id` DESC")){
+        $result['transalations'] = array();
+        $result['lang'] = $l;
+        foreach ($gallery_query as $gallery_image) {
+            $gallery_image_id = $gallery_image['id'];
+            unset($gallery_image['id']);
+            $result['transalations'][$gallery_image_id] = $gallery_image;
+        }
+    }
+    
 }
 
 

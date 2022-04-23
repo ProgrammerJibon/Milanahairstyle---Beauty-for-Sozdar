@@ -183,7 +183,7 @@ function notification(text, color){
 }
 function href(link){
 	if(link){
-		window.location.assign(link);
+		window.location.href = (link);
 	}
 }
 function tab(link){

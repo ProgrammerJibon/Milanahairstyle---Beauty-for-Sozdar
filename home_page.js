@@ -8,6 +8,8 @@
         men_prices = result.men_prices;
         women_prices = result.women_prices;
         info = result.home_page;
+        t = result.transalations;
+        lang = result.lang;
         gallery_images = result.gallery_images;
         console.log(result);
         contents = document.querySelector("div.contents");
@@ -33,19 +35,48 @@
                     right_header_nav = create("div", "right_header_nav");
                     right_header.appendChild(right_header_nav);
                         right_header_nav_item = create("div", "right_header_nav_item");
-                        right_header_nav_item.innerHTML = "HOME";
+                        right_header_nav_item.innerHTML = t[42][lang]; // home
                         right_header_nav.appendChild(right_header_nav_item);
                         right_header_nav_item.onclick=()=>{setState("/", info.title);};
                         
                         right_header_nav_item = create("div", "right_header_nav_item");
-                        right_header_nav_item.innerHTML = "Book an appointment";
+                        right_header_nav_item.innerHTML = t[74][lang];//"Book an appointment";
                         right_header_nav.appendChild(right_header_nav_item);
                         right_header_nav_item.onclick=()=>{setState("/booking", info.title + " - Booking")};
                         
                         right_header_nav_item = create("div", "right_header_nav_item");
-                        right_header_nav_item.innerHTML = "Contact";
+                        right_header_nav_item.innerHTML = t[10][lang];//"Contact";
                         right_header_nav.appendChild(right_header_nav_item);
                         right_header_nav_item.onclick=()=>{setState("/contact", info.title + " - Contact us")};
+                        
+                        right_header_nav_item = create("div", "right_header_nav_item change_lang");
+                        right_header_nav.appendChild(right_header_nav_item);
+                            language_icons = create("img");
+                            right_header_nav_item.appendChild(language_icons);
+                            language_icons.src = `/flags/${lang}.png`;
+
+                            language_icons_down_arrow = create("i", "fa-solid fa-chevron-down");
+                            right_header_nav_item.appendChild(language_icons_down_arrow);
+
+                            languages_list = create("div", "languages_list");
+                            right_header_nav_item.appendChild(languages_list);
+                            Object.keys(t[1]).forEach(t_langs=>{
+                                if(t_langs == lang){
+                                    return;
+                                }
+                                languages_list_item = create("div" , "language_item");
+                                languages_list_item.onclick=()=>{
+                                    href(`?language=${t_langs}&next=${window.location.href}`);
+                                }
+                                languages_list.appendChild(languages_list_item);
+                                    languages_list_item_flag = create("img");
+                                    languages_list_item.appendChild(languages_list_item_flag);
+                                    languages_list_item_flag.src = `/flags/${t_langs}.png`;
+
+                                    languages_list_item_span = create("span");
+                                    languages_list_item.appendChild(languages_list_item_span);
+                                    languages_list_item_span.innerHTML = t[1][t_langs];
+                            });
             booking.style.paddingTop = header.clientHeight+"px";;
             contact.style.paddingTop = header.clientHeight+"px";;
         footer = create("footer");
@@ -74,7 +105,7 @@
                 fnav_i2 = create("div", "footer_nav_item");
                 footer_navigations.appendChild(fnav_i2);
                     fnav_title = create("h3", "fnav_title");
-                    fnav_title.innerHTML = "Opening hours";
+                    fnav_title.innerHTML = t[75][lang];//"Opening hours";
                     fnav_i2.appendChild(fnav_title);
 
                     fnav_item = create("div", "fnav_item");
@@ -113,26 +144,26 @@
                 fnav_i3 = create("div", "footer_nav_item");
                 footer_navigations.appendChild(fnav_i3);
                     fnav_title = create("h3", "fnav_title");
-                    fnav_title.innerHTML = "Links";
+                    fnav_title.innerHTML = t[87][lang];//"Links";
                     fnav_i3.appendChild(fnav_title);
 
                     right_header_nav_item = create("div", "fnav_item link");
-                    right_header_nav_item.innerHTML = '<i class="fa-solid fa-house"></i> Home';
+                    right_header_nav_item.innerHTML = '<i class="fa-solid fa-house"></i> '+t[42][lang]; //Home';
                     fnav_i3.appendChild(right_header_nav_item);
                     right_header_nav_item.onclick=()=>{setState("/", info.title);};
                     
                     right_header_nav_item = create("div", "fnav_item link");
-                    right_header_nav_item.innerHTML = '<i class="fa-solid fa-calendar-check"></i> Book an appointment';
+                    right_header_nav_item.innerHTML = '<i class="fa-solid fa-calendar-check"></i> '+t[74][lang];//Book an appointment';
                     fnav_i3.appendChild(right_header_nav_item);
                     right_header_nav_item.onclick=()=>{setState("/booking", info.title + " - Booking")};
                     
                     right_header_nav_item = create("div", "fnav_item link");
-                    right_header_nav_item.innerHTML = '<i class="fa-solid fa-id-card"></i> Contact';
+                    right_header_nav_item.innerHTML = '<i class="fa-solid fa-id-card"></i> '+t[75][lang];//Contact';
                     fnav_i3.appendChild(right_header_nav_item);
                     right_header_nav_item.onclick=()=>{setState("/contact", info.title + " - Contact us")};
 
                     right_header_nav_item = create("div", "fnav_item link");
-                    right_header_nav_item.innerHTML = '<i class="fa-solid fa-screwdriver-wrench"></i> Control panel';
+                    right_header_nav_item.innerHTML = '<i class="fa-solid fa-screwdriver-wrench"></i> '+t[76][lang];//Control panel';
                     fnav_i3.appendChild(right_header_nav_item);
                     right_header_nav_item.onclick=()=>{href("/admin")};
 
@@ -140,18 +171,18 @@
                 fnav_i4.onsubmit=()=>{return false}
                 footer_navigations.appendChild(fnav_i4);
                     fnav_title = create("h3", "fnav_title");
-                    fnav_title.innerHTML = "Stay up to date";
+                    fnav_title.innerHTML = t[77][lang];//"Stay up to date";
                     fnav_i4.appendChild(fnav_title);
 
                     fnav_item1 = create("input", "fnav_item newsletter_subscription");
                     fnav_item1.type = "email";
                     fnav_item1.required = true;
-                    fnav_item1.placeholder = "Enter email address";
+                    fnav_item1.placeholder = t[16][lang];//"Enter email address";
                     fnav_i4.appendChild(fnav_item1);
 
                     fnav_item2 = create("button", "fnav_item newsletter_subscription");
                     fnav_item2.type = "submit"
-                    fnav_item2.innerHTML = "Subscribe to newsletter";
+                    fnav_item2.innerHTML = t[71][lang];//"Subscribe to newsletter";
                     fnav_i4.appendChild(fnav_item2);
                     fnav_item2.onclick=()=>{
                         newsletterSubscription1(fnav_item1, fnav_item2)
@@ -176,16 +207,15 @@
                 top_banner_right = create("div", "top_banner_right");
                 top_banner.appendChild(top_banner_right);
                     tbr_header_1 = create("div", "tbr_header_1");
-                    tbr_header_1.innerHTML = "Men's styling";
+                    tbr_header_1.innerHTML = t[78][lang];//"Men's styling";
                     top_banner_right.appendChild(tbr_header_1);
                     
                     tbr_header_2 = create("div", "tbr_header_2");
-                    tbr_header_2.innerHTML = `MEN'S HAIRSTYLES
-                    FOR ALL AGE`;
+                    tbr_header_2.innerHTML = t[79][lang];//`MEN'S HAIRSTYLES FOR ALL AGE`;
                     top_banner_right.appendChild(tbr_header_2);
                     
                     tbr_header_3 = create("button", "tbr_header_3");
-                    tbr_header_3.innerHTML = `Book an appointment`;
+                    tbr_header_3.innerHTML = t[74][lang];//`Book an appointment`;
                     tbr_header_3.onclick=()=>{setState("/booking", info.title+" - Booking")};
                     top_banner_right.appendChild(tbr_header_3);
 
@@ -193,14 +223,14 @@
                 top_banner.appendChild(gender_selections);
                     men = create("button", "gender active");
                     gender_selections.appendChild(men);
-                    men.innerHTML = "MEN";
+                    men.innerHTML = t[50][lang];//"MEN";
                     women = create("button", "gender");
                     gender_selections.appendChild(women);
-                    women.innerHTML = "WOMEN";
+                    women.innerHTML = t[51][lang];//"WOMEN";
 
             prices_title = create("h2", "prices_title");
             home_page.appendChild(prices_title);
-            prices_title.innerHTML = "pricing - men";
+            prices_title.innerHTML = t[44][lang] + "-" + t[50][lang];//"pricing - men";
             prices = create("div", "price_lists");
             home_page.appendChild(prices);
                 beside_prices_pic = create("div", "beside_prices_pic");
@@ -238,25 +268,23 @@
                     men.onclick=()=>{
                         price_list_men.style.display = "flex";
                         price_list_women.style.display = "none";
-                        prices_title.innerHTML = "Pricing - men";
+                        prices_title.innerHTML = t[44][lang] + "-" + t[50][lang];//"Pricing - men";
 
                         men.classList.add("active");
                         women.classList.remove("active");
-                        tbr_header_1.innerHTML = "Men's styling";
-                        tbr_header_2.innerHTML = `MEN'S HAIRSTYLES
-                        FOR ALL AGE`;
+                        tbr_header_1.innerHTML = t[78][lang];//"Men's styling";
+                        tbr_header_2.innerHTML = t[79][lang];//`MEN'S HAIRSTYLES FOR ALL AGE`;
                         top_banner.style = `background: url("${info.top_banner_men}");background-position: center;background-repeat: no-repeat;background-size: cover;background-attachment: fixed;`;
                     }
                     women.onclick=()=>{
                         price_list_men.style.display = "none";
                         price_list_women.style.display = "flex";
-                        prices_title.innerHTML = "Pricing - women";
+                        prices_title.innerHTML = t[44][lang] + "-" + t[51][lang];//"Pricing - women";
 
                         men.classList.remove("active");
                         women.classList.add("active");
-                        tbr_header_1.innerHTML = "Womens's styling";
-                        tbr_header_2.innerHTML = `Womens'S HAIRSTYLES
-                        FOR ALL AGE`;
+                        tbr_header_1.innerHTML = t[80][lang];//"Womens's styling";
+                        tbr_header_2.innerHTML = t[81][lang];//`Womens'S HAIRSTYLES FOR ALL AGE`;
                         top_banner.style = `background: url("${info.top_banner_women}");background-position: center;background-repeat: no-repeat;background-size: cover;background-attachment: fixed;`;
                     }
             gallery = create("div")
@@ -295,11 +323,11 @@
             table_books.action = "/json.php";
             booking.appendChild(table_books);
                 tb_title = create("h2", "tb_title");
-                tb_title.innerHTML = "Book an apointment";
+                tb_title.innerHTML = t[74][lang];//"Book an apointment";
                 table_books.appendChild(tb_title);
 
                 tb_name_div = create("label", "input_label");
-                tb_name_div.innerHTML = "Enter your full name";
+                tb_name_div.innerHTML = t[48][lang] + " & " + t[49][lang] ;//"Enter your full name";
                 table_books.appendChild(tb_name_div);
                     tb_name_input = create("input");
                     tb_name_input.placeholder = "Jhon Doe";
@@ -308,7 +336,7 @@
                     tb_name_div.appendChild(tb_name_input);
 
                 tb_email_div = create("label", "input_label");
-                tb_email_div.innerHTML = "Enter your email address";
+                tb_email_div.innerHTML = t[16][lang];//"Enter your email address";
                 table_books.appendChild(tb_email_div);
                     tb_email_input = create("input");
                     tb_email_input.placeholder = "user@domain.com";
@@ -317,7 +345,7 @@
                     tb_email_div.appendChild(tb_email_input);
 
                 tb_phone_div = create("label", "input_label");
-                tb_phone_div.innerHTML = "Enter your phone number";
+                tb_phone_div.innerHTML = t[15][lang];//"Enter your phone number";
                 table_books.appendChild(tb_phone_div);
                     tb_phone_input = create("input");
                     tb_phone_input.placeholder = "+88016500XXXXX";
@@ -326,7 +354,7 @@
                     tb_phone_div.appendChild(tb_phone_input);
 
                 tb_date_div = create("label", "input_label");
-                tb_date_div.innerHTML = "Select date";
+                tb_date_div.innerHTML = t[82][lang];//"Select date";
                 table_books.appendChild(tb_date_div);
                     tb_date_input = create("input");
                     tb_date_input.value = "2022-04-05";
@@ -335,7 +363,7 @@
                     tb_date_div.appendChild(tb_date_input);
 
                 tb_time_div = create("label", "input_label");
-                tb_time_div.innerHTML = "Select time";
+                tb_time_div.innerHTML = t[83][lang];//"Select time";
                 table_books.appendChild(tb_time_div);
                     tb_time_input = create("input");
                     tb_time_input.value = "14:35";
@@ -347,7 +375,7 @@
                 table_books.appendChild(tb_submit_div);
                     tb_submit_input = create("input");
                     tb_submit_input.type = "submit";
-                    tb_submit_input.value = "Book an appointment";
+                    tb_submit_input.value = t[74][lang];//"Book an appointment";
                     tb_submit_div.appendChild(tb_submit_input);
                     table_books.onsubmit=()=>{
                         if(!validateEmail(tb_email_input.value)){
@@ -358,9 +386,9 @@
                             if (result.booking == true) {
                                 table_books.innerHTML = "";
                                 table_books.appendChild(tb_title);
-                                tb_title.innerHTML = "Booking has succesfully confirmed!<br>Please check your mail";
+                                tb_title.innerHTML = `${t[84][lang]}<br>${t[85][lang]}`;//"Booking has succesfully confirmed!<br>Please check your mail";
                             }else{
-                                alert("Check all the fields...");
+                                alert(t[86][lang]);//"Check all the fields...");
                             }
                         });
                         return false;

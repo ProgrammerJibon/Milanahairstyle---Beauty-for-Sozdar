@@ -1022,3 +1022,126 @@ input:disabled, input:disabled:hover{
     height: 20px;
     font-size: 15px;
 }
+.change_lang {
+    width: 50px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+.change_lang img{
+    height: auto;
+    margin-right: 4px;
+}
+
+.languages_list {
+    display: flex;
+    position: absolute;
+    top: 120%;
+    right: 0;
+    max-height: 0px;
+    overflow: hidden;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    background: #000000;
+    border-radius: 6px;
+}
+.change_lang:hover .languages_list{
+    max-height: 500px;
+}
+.language_item {
+    padding: 16px;
+}
+.language_item:hover{
+    background: white;
+    color: black;
+}
+.change_lang.right_header_nav_item:hover{
+    opacity: 1;
+}
+
+
+@media only screen and (max-width: 800px){
+    body{
+        max-width: 100vw;
+    }
+    header {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        align-content: center;
+        flex-wrap: nowrap;
+        position: relative;
+        background: black;
+    }
+    footer {
+        position: relative;
+    }
+    .contents {
+        padding-bottom: 0px !important;
+    }
+    .tbr_header_1 {
+        font-size: 32px;
+    }
+    .tbr_header_2 {
+        font-size: 50px;
+    }
+    .tbr_header_3 {
+        padding: 12px;
+        font-size: 17px;
+        border-radius: 6px;
+    }
+    .top_banner {
+        justify-content: center;
+        background-attachment: unset !important;
+    }
+    .footer_navigations {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        align-content: center;
+        justify-content: space-around;
+        align-items: stretch;
+    }
+    .contact {
+        padding-top: 0px !important;
+    }
+    .price_lists {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        align-content: stretch;
+        justify-content: center;
+        flex-wrap: nowrap;
+    }
+    .beside_prices_pic {
+        margin: 0 auto;
+    }
+    .photo.full_size {
+        --top: 0px !important;
+    }
+    .date {
+        position: absolute;
+        bottom: 0;
+        top: unset !important;
+    }
+    .title {
+        position: absolute;
+        bottom: 32px !important;
+    }
+    .full_size:after {
+        content: "X";
+        position: absolute;
+        top: 32px;
+        right: 32px;
+        color: white;
+        font-size: 32px;
+    }
+}

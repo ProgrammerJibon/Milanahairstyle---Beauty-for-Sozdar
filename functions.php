@@ -7,14 +7,31 @@ $info = info();
 $ip =  get_client_ip();
 $user_agent = $_SERVER['HTTP_USER_AGENT'];
 $website = $_SERVER['REQUEST_SCHEME']."://".$_SERVER['HTTP_HOST'];
+$current_url = urlencode($_SERVER['REQUEST_URI']);
 function connect(){
 	$DB_HOST = "localhost";
 	$DB_USER = "root";
-	$DB_PASS = "";
+	$DB_PASS = '';
 	$DB_NAME = "project_38";
 	$CONNECT = @mysqli_connect($DB_HOST, $DB_USER, $DB_PASS, $DB_NAME);
+	mysqli_set_charset($CONNECT,"utf8");
 	return $CONNECT;
 }
+
+if (isset($_GET['language'])) {
+	if ($_SESSION['language'] = addslashes(strtolower($_GET['language']))) {
+		if (isset($_GET['next'])) {
+			header("Location: $_GET[next]");
+		}else{
+			header("Location: /");
+		}
+	}
+}
+$l = 'de';
+if (isset($_SESSION['language'])) {
+	$l = $_SESSION['language'];
+}
+
 
 function get_client_ip() {
     $ipaddress = '';
@@ -104,18 +121,20 @@ function upload($tmp_file, $type = false){
 
 
 function sent_mail($to = null, $fname = null, $message = null, $subject = null, $reply_to_this = null){
+    global $website;
+    global $info;
 	$fname = ucwords(strtolower(addslashes($fname)));
 	$to = (strtolower(addslashes(strip_tags($to))));
 	
 
-	$website_title = $_SESSION['site_name'];
-	$website_url = $_SERVER['REQUEST_SCHEME']."://".$_SERVER['SERVER_NAME'];
+	$website_title = $info['title'];
+	$website_url = $website;
 	if ($reply_to_this != null) {
 		$web_mail = $reply_to_this;
 	}else{
-		$web_mail = "no-reply@lemarbuchladen.de";
+		$web_mail = $info['email'];
 	}	
-	$logo = "https://www.lemarbuchladen.de/cdn/logo.png";
+	$logo = $website."/".$info['logo'];
 
 	if ($subject == null) {
 		$subject = "Notification from $website_title";
@@ -208,7 +227,7 @@ function sent_mail($to = null, $fname = null, $message = null, $subject = null, 
 		</table>
 	</body>
 	';
-	if (@mail($to, $subject, $mail_body, $header)) {
+	if (mail($to, $subject, $mail_body, $header)) {
 		return $to;
 	}else{
 		return false;
